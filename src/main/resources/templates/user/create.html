@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" >
+<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+<link th:href="@{/css/site.css}" rel="stylesheet" />
+<title>create | sample</title>
+</head>
+<body>
+<header th:replace="nav"></header>
+<div class="container">
+<h1>create</h1>
+<form th:action="@{/createUser}" th:object="${localUserForm}" method="post">
+	<div>
+		<label for="name">name</label>
+		<input type="text" th:field="*{name}" id="name" />
+		<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+	</div>
+	<div>
+		<label for="email">email</label>
+		<input type="text" th:field="*{email}" id="email" />
+		<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+	</div>
+	<div>
+		<label for="passwordRaw">password</label>
+		<input type="password" th:field="*{passwordRaw}" id="passwordRaw" />
+		<span th:if="${#fields.hasErrors('passwordRaw')}" th:errors="*{passwordRaw}"></span>
+	</div>
+	<div>
+		<label for="enabled">enabled</label>
+		<input type="checkbox" th:field="*{enabled}" id="enabled" />
+		<span th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}"></span>
+	</div>
+	<div>
+		<button type="submit">登録</button>
+	</div>
+</form>
+</div>
+</body>
+</html>

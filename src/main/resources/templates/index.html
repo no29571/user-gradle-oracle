@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" >
+<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+<link th:href="@{/css/site.css}" rel="stylesheet" />
+<title>home | sample</title>
+</head>
+<body>
+<header th:replace="nav"></header>
+<div class="container">
+<h1>認証とマスタメンテのサンプル</h1>
+<h2>9. 複合主キー・外部キー・結合</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-join">参考（postgresql版）：ex-join</a>
+</div>
+<ol>
+	<li>drop table local_user cascade;</li>
+	<li>ユーザEntityのロールのフィールドを廃止</li>
+	<li>DTOとテンプレートの上記対応</li>
+	<li>ロールのEntity・Repository・DTO・検証・Controller・テンプレートを作成</li>
+	<li>ロール付与のEntity・ID・Repository・DTO・Controller・テンプレートを作成</li>
+	<li>ナビゲーションに上記を追加</li>
+	<li>getAuthoritiesの対応（UserDetails・UserDetailsService・Entity）</li>
+	<li>Configクラスによる権限設定例（ユーザ登録・編集）</li>
+	<li>テンプレートによる権限設定例（検索フォーム）</li>
+	<li>※各機能の権限設定は要検討</li>
+	<li>insert into local_user</li>
+</ol>
+<h2>8. Role（enum）</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-role">参考（postgresql版）：ex-role</a>
+</div>
+<ol>
+	<li>drop table local_user cascade;</li>
+	<li>Roleクラス（enum）を作成</li>
+	<li>EntityとDTOとテンプレートにRoleのフィールドを追加</li>
+	<li>DTOクラスにRoleのプルダウンリストを追加</li>
+	<li>UserDetailsクラス（getAuthorities）の対応</li>
+	<li>Configクラスによる権限設定例（ユーザ登録・編集）</li>
+	<li>テンプレートによる権限設定例（検索フォーム）</li>
+	<li>insert into local_user</li>
+</ol>
+<h2>7. Navigation（bootstrap）</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-webjars">参考（postgresql版）：ex-webjars</a>
+</div>
+<ol>
+	<li>pom.xmlにorg.webjarsを追加</li>
+	<li>【起動エラーが出る場合】実行 - Marven clean</li>
+	<li>【起動エラーが出る場合】プロジェクト - Marven プロジェクトの更新</li>
+	<li>ナビゲーションのテンプレートを作成</li>
+	<li>他のテンプレートの上記対応</li>
+	<li>【ログイン画面やエラー画面にもbootstrap等をリンクする場合】securityFilterChainでwebjarsを許可</li>
+</ol>
+<h2>6. 排他制御</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-lock">参考（postgresql版）：ex-lock</a>
+</div>
+<ol>
+	<li>drop table local_user cascade;</li>
+	<li>パスワード変更のテンプレートを作成</li>
+	<li>DTO（メソッドによる入力検証含む）を作成</li>
+	<li>RepositoryにForUpdateメソッド（悲観ロック）を追加</li>
+	<li>ControllerとServiceの対応</li>
+	<li>message.propertiesに定義を追加</li>
+	<li>EntityにバージョンのAuditingフィールドを追加（楽観ロック）</li>
+	<li>テンプレートとDTOの対応</li>
+	<li>Controllerクラスに同時更新検出対応を追加</li>
+	<li>message.propertiesに定義を追加</li>
+	<li>insert into local_user</li>
+</ol>
+<h2>5. 更新情報の自動設定（JPA Auditing）</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-audit">参考（postgresql版）：ex-audit</a>
+</div>
+<ol>
+	<li>drop table local_user cascade;</li>
+	<li>Configクラスを作成</li>
+	<li>UserDetailsクラスの対応（独自情報のGetterを追加）</li>
+	<li>Auditingの共通クラス（親クラス）を作成</li>
+	<li>Entityクラスに上記の継承を設定</li>
+	<li>※親クラスをつくらずEntityクラスに直接フィールド追加でも可</li>
+	<li>テンプレートを調整</li>
+	<li>ユーザ削除の機能を廃止</li>
+	<li>EntityとDTOとテンプレートに有効化のフィールドを追加</li>
+	<li>UserDetailsクラスの対応（isEnabled）</li>
+	<li>テンプレートへのログイン情報出力例（displayNameを出力）</li>
+	<li>insert into local_user</li>
+</ol>
+<h2>4. ログインのカスタマイズ</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-login">参考（postgresql版）：ex-login</a>
+</div>
+<ol>
+	<li>drop table local_user cascade;</li>
+	<li>Configクラスを作成</li>
+	<li>EntityとDTOとテンプレートにパスワードのフィールドを追加</li>
+	<li>Serviceクラスにパスワード暗号化を追加</li>
+	<li>Controllerクラスの対応</li>
+	<li>UserDetailsクラスとUserDetailsServiceクラスを作成</li>
+	<li>ログインのテンプレートを作成</li>
+	<li>Controllerクラスにマッピングを追加</li>
+	<li>テンプレートへのログイン情報出力例（usernameを出力）</li>
+	<li>data.sql（ログインテスト用初期ユーザ登録）を作成</li>
+	<li>application.propertiesで上記実行設定を追加</li>
+	<li>※テーブル作成のタイミングによりエラーになる場合は手動insert</li>
+	<li>上記ユーザ(test@example.com/test)でログイン</li>
+</ol>
+<h2>3. Validation</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-validation">参考（postgresql版）：ex-validation</a>
+</div>
+<ol>
+	<li>drop table local_user cascade;</li>
+	<li>Entityクラスに定義・制約を追加</li>
+	<li>Repositoryクラスにメソッド定義追加</li>
+	<li>AnnotationクラスとValidatorクラスを作成</li>
+	<li>フィールド単位の検証のサンプル：ByteLength</li>
+	<li>クラス単位の検証のサンプル：UniqueEmail</li>
+	<li>message.propertiesを作成（Limyプロパティエディタで開く）</li>
+	<li>DTOクラス（LocalUserForm）を作成</li>
+	<li>Serviceクラスの引数をDTOに変更</li>
+	<li>テンプレートとControllerクラスの対応</li>
+</ol>
+<h2>2. CRUD</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-crud">参考（postgresql版）：ex-crud</a>
+</div>
+<ol>
+	<li>Entityクラスを作成</li>
+	<li>Repositoryクラスを作成</li>
+	<li>Serviceクラスを作成</li>
+	<li>Controllerクラスを作成</li>
+	<li>CSS（resources/static配下）とテンプレートを作成</li>
+</ol>
+<h2>1. Hello World</h2>
+<div>
+	<a href="https://github.com/no29571/user/tree/ex-hello">参考（postgresql版）：ex-hello</a>
+</div>
+<h3>Spring Starter Project作成時に設定する依存関係</h3>
+<ul>
+	<li>Spring Boot DevTools (Developer Tools)</li>
+	<li>Lombok (Developer Tools)</li>
+	<li>Validation (I/O)</li>
+	<li>Spring Data JPA (SQL)</li>
+	<li>Oracle Driver (SQL)</li>
+	<li>Thymeleaf (Template Engines)</li>
+	<li>Spring Web (Web)</li>
+	<li>Spring Security (Security)</li>
+</ul>
+<h3>依存関係にSQLを設定した場合</h3>
+<ol>
+	<li>application.propertiesにDB接続定義を記載</li>
+	<li>DBユーザ作成</li>
+</ol>
+<pre>
+--sqlplus system/<password>@localhost:1521/XEPDB1
+CREATE USER ex_user
+IDENTIFIED BY "example"
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp;
+
+GRANT dba TO ex_user;
+</pre>
+<h3>手順</h3>
+<ol>
+	<li>Controllerクラスを作成</li>
+	<li>テンプレート（resources/templates配下)を作成</li>
+	<li>実行（Run as Spring Boot App）</li>
+	<li><a href="http://localhost:8080">localhost</a></li>
+</ol>
+<h3>依存関係にSecurityを設定した場合（デフォルトの認証機能）</h3>
+<ol>
+	<li>Username: user</li>
+	<li>Password: コンソールに出力されているパスワード（Using generated security password:～）</li>
+	<li>Sign in</li>
+</ol>
+</div>
+</body>
+</html>
